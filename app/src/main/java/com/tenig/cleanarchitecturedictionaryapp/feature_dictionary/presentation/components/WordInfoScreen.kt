@@ -53,6 +53,9 @@ fun WordInfoScreen() {
                     onValueChange = {
                         viewModel.onEvent(WordInfoEvent.EnteredSearchText(it))
                     },
+                    trailingIcon = {
+
+                    }
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
@@ -61,7 +64,7 @@ fun WordInfoScreen() {
                         if (index > 0) {
                             Spacer(modifier = Modifier.height(8.dp))
                         }
-                        Text(text = wordinfo.word,color = Color.Black)
+                        WordInfoItem(wordInfo = wordinfo)
                         if (index < state.wordInfoList.size - 1) {
                             Divider()
                         }
