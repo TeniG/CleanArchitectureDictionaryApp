@@ -11,7 +11,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.tenig.cleanarchitecturedictionaryapp.feature_dictionary.presentation.WordInfoEvent
 import com.tenig.cleanarchitecturedictionaryapp.feature_dictionary.presentation.WordInfoViewModel
@@ -36,7 +39,21 @@ fun WordInfoScreen() {
         }
     }
 
-    Scaffold(scaffoldState = scaffoldState) {
+    Scaffold(scaffoldState = scaffoldState,
+        topBar = {
+            TopAppBar(
+                backgroundColor = MaterialTheme.colors.primary,
+                contentColor = Color.White,
+                contentPadding = PaddingValues(horizontal = 16.dp)
+            ){
+                Text("Dictionary App",
+                    textAlign = TextAlign.Center,
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
+    ) {
         Box(
             modifier = Modifier
                 .background(MaterialTheme.colors.background)
