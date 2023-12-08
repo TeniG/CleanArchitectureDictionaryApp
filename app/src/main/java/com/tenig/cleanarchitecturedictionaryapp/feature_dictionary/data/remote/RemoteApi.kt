@@ -10,7 +10,7 @@ interface RemoteApi {
     }
 
     @GET("api/v2/entries/en/{word}")
-    fun getWordInfo(
+    suspend fun getWordInfo(
         @Path("word") word: String
     ): List<WordInfoDto>
 }

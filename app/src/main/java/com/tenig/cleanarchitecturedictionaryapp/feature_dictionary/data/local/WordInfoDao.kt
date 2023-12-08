@@ -12,9 +12,9 @@ interface WordInfoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWordInfos(wordInfo: List<WordInfoEntity>)
 
-    @Query("Delete from word_info where word IN (:words)")
-    fun deleteWordInfos(words: List<String>)
+    @Query("Delete from word_info where word IN(:words)")
+    suspend fun deleteWordInfos(words: List<String>)
 
     @Query("Select * from word_info where word LIKE '%' || :word || '%'")
-    fun getWordInfos(word: String) : List<WordInfoEntity>
+    suspend fun getWordInfos(word: String) : List<WordInfoEntity>
 }

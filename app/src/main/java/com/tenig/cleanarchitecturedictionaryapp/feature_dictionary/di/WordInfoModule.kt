@@ -2,10 +2,8 @@ package com.tenig.cleanarchitecturedictionaryapp.feature_dictionary.di
 
 import android.app.Application
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.google.gson.Gson
 import com.tenig.cleanarchitecturedictionaryapp.feature_dictionary.data.local.Converter
-import com.tenig.cleanarchitecturedictionaryapp.feature_dictionary.data.local.WordInfoDao
 import com.tenig.cleanarchitecturedictionaryapp.feature_dictionary.data.local.WordInfoDatabase
 import com.tenig.cleanarchitecturedictionaryapp.feature_dictionary.data.local.util.GsonConverter
 import com.tenig.cleanarchitecturedictionaryapp.feature_dictionary.data.remote.RemoteApi
@@ -16,6 +14,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -44,13 +44,25 @@ class WordInfoModule {
 
     @Provides
     @Singleton
-    fun provideRemoteApi(): RemoteApi {
+    fun provideRemoteApi(httpClient: OkHttpClient): RemoteApi {
         val retrofit = Retrofit.Builder()
             .baseUrl(RemoteApi.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
+            .client(httpClient)
             .build()
 
         return  retrofit.create(RemoteApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideHttpClient(): OkHttpClient {
+        val httpLoggingInterceptor = HttpLoggingInterceptor()
+            .setLevel(HttpLoggingInterceptor.Level.BODY)
+
+        return OkHttpClient.Builder()
+            .addInterceptor(httpLoggingInterceptor)
+            .build()
     }
 
     @Provides

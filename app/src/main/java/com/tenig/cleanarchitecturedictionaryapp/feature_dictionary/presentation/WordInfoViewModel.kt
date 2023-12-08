@@ -44,19 +44,19 @@ class WordInfoViewModel @Inject constructor(
                     getWordInfoUsecase(event.searchText).onEach { result ->
                         when (result) {
                             is Resource.Loading -> {
-                                _wordInfoState.value.copy(
+                                _wordInfoState.value = _wordInfoState.value.copy(
                                     wordInfoList = result.data ?: emptyList(),
                                     isLoading = true
                                 )
                             }
                             is Resource.Success -> {
-                                _wordInfoState.value.copy(
+                                _wordInfoState.value = _wordInfoState.value.copy(
                                     wordInfoList = result.data ?: emptyList(),
                                     isLoading = false
                                 )
                             }
                             is Resource.Error -> {
-                                _wordInfoState.value.copy(
+                                _wordInfoState.value = _wordInfoState.value.copy(
                                     wordInfoList = result.data ?: emptyList(),
                                     isLoading = false
                                 )

@@ -1,7 +1,7 @@
 package com.tenig.cleanarchitecturedictionaryapp.feature_dictionary.data.local
 
 import androidx.room.ProvidedTypeConverter
-import androidx.room.TypeConverters
+import androidx.room.TypeConverter
 import com.google.gson.reflect.TypeToken
 import com.tenig.cleanarchitecturedictionaryapp.feature_dictionary.data.local.util.JsonParser
 import com.tenig.cleanarchitecturedictionaryapp.feature_dictionary.domain.models.Meaning
@@ -10,7 +10,7 @@ import com.tenig.cleanarchitecturedictionaryapp.feature_dictionary.domain.models
 class Converter(
     private val jsonParser: JsonParser
 ) {
-    @TypeConverters
+    @TypeConverter
     fun fromMeaningJson(json: String): List<Meaning> {
         return jsonParser.fromJson<ArrayList<Meaning>>(
             json,
@@ -18,8 +18,8 @@ class Converter(
         ) ?: emptyList()
     }
 
-    @TypeConverters
-    fun toJson(meaningList: List<Meaning>): String {
+    @TypeConverter
+    fun toMeaningJson(meaningList: List<Meaning>): String {
         return jsonParser.toJson(
             meaningList,
             object : TypeToken<ArrayList<Meaning>>() {}.type
