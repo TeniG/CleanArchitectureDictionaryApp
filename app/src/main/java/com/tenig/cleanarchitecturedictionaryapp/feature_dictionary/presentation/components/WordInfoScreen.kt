@@ -4,6 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -54,7 +56,17 @@ fun WordInfoScreen() {
                         viewModel.onEvent(WordInfoEvent.EnteredSearchText(it))
                     },
                     trailingIcon = {
-
+                        IconButton(
+                            onClick = {
+                                viewModel.onEvent(WordInfoEvent.ClearText)
+                            },
+                        ) {
+                            Icon(
+                                Icons.Default.Clear,
+                                contentDescription = "",
+                                tint = Color.Black
+                            )
+                        }
                     }
                 )
                 Spacer(modifier = Modifier.height(16.dp))

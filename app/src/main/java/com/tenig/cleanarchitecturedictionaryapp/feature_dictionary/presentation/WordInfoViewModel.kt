@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tenig.cleanarchitecturedictionaryapp.core.util.Resource
 import com.tenig.cleanarchitecturedictionaryapp.feature_dictionary.domain.usecase.GetWordInfoUsecase
+import com.tenig.cleanarchitecturedictionaryapp.feature_dictionary.presentation.components.WordInfoScreen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -70,6 +71,10 @@ class WordInfoViewModel @Inject constructor(
 
                     }.launchIn(this)
                 }
+            }
+            is WordInfoEvent.ClearText -> {
+                _wordInfoState.value = WordInfoState()
+                _searchQuery.value = ""
             }
         }
     }
